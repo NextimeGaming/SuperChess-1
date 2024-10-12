@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e9749734b6f7fb04191b8d5bcfa87cc0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - videoPlayer: {fileID: 3366739316778635612, guid: 2716ec4a55921c149bafae3c483525e3, type: 3}
+  - menuOpcoes: {fileID: 7551388093527060422, guid: 375250d89f713a842bd856cb13454b36, type: 3}
+  - rawImage: {fileID: 4071770048250816387, guid: 7f2cd5ecd1736524e9375df2dab4c232, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

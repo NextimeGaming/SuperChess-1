@@ -6,7 +6,7 @@ public class whiteArcherManager : MonoBehaviour
 {
     private static whiteArcherManager selectedArcher = null;
 
-    private bool mouseOver = false; 
+    private bool mouseOver = false;
     public Color hoverColor;
     private Renderer rend;
     private Color startColor;
@@ -27,7 +27,6 @@ public class whiteArcherManager : MonoBehaviour
         startColor = rend.material.color;
         tabuleiro = FindObjectOfType<TabuleiroDamas>();
 
-        
         foreach (var casa in GameObject.FindGameObjectsWithTag("Casa"))
         {
             casaCoresOriginais[casa] = casa.GetComponent<Renderer>().material.color;
@@ -133,7 +132,7 @@ public class whiteArcherManager : MonoBehaviour
 
     private bool IsPositionValid(Vector3 targetPos)
     {
-        return tabuleiro.IsPositionEmpty(targetPos) && IsAdjacent(targetPos);
+        return tabuleiro.IsPositionEmpty(targetPos) && IsAdjacent(targetPos) && IsDirectionFree(posAtual, targetPos);
     }
 
     private bool IsAdjacent(Vector3 targetPos)
@@ -141,6 +140,76 @@ public class whiteArcherManager : MonoBehaviour
         Vector3 currentPos = transform.position;
         float distance = Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z));
         return distance <= 2.0f; // Permite movimento nas diagonais
+    }
+
+    private bool IsDirectionFree(Vector2Int currentPos, Vector3 targetPos)
+    {
+        int deltaX = Mathf.RoundToInt(targetPos.x) - currentPos.x;
+        int deltaY = Mathf.RoundToInt(targetPos.z) - currentPos.y;
+
+        // Verifica se está movendo na horizontal
+        if (deltaY == 0)
+        {
+            
+            if (deltaX > 0)
+            {
+                return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x + 1, 0, currentPos.y));
+            }
+            
+            else if (deltaX < 0)
+            {
+                return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x - 1, 0, currentPos.y));
+            }
+        }
+        // Verifica se está movendo na vertical
+        else if (deltaX == 0)
+        {
+            
+            if (deltaY > 0)
+            {
+                return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x, 0, currentPos.y + 1));
+            }
+            
+            else if (deltaY < 0)
+            {
+                return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x, 0, currentPos.y - 1));
+            }
+        }
+
+        // Para movimentos diagonais ou inválidos
+        return true;
+    }
+
+    private bool IsAdjacentHousesFree(Vector2Int currentPos)
+    {
+        // Verifica se as casas adjacentes estão vazias
+        int[][] directions = new int[][]
+        {
+            new int[] { 1, 0 }, // Direita
+            new int[] { -1, 0 }, // Esquerda
+            new int[] { 0, 1 }, // Cima
+            new int[] { 0, -1 }, // Baixo
+            new int[] { 1, 1 }, // Diagonal direita-cima
+            new int[] { 1, -1 }, // Diagonal direita-baixo
+            new int[] { -1, 1 }, // Diagonal esquerda-cima
+            new int[] { -1, -1 } // Diagonal esquerda-baixo
+        };
+
+        foreach (var dir in directions)
+        {
+            int x = currentPos.x + dir[0];
+            int y = currentPos.y + dir[1];
+
+            if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
+            {
+                if (!tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
+                {
+                    return false; // Casa ocupada
+                }
+            }
+        }
+
+        return true; // as casas estão livres
     }
 
     private void MostrarCasasDisponiveisArqueiro()
@@ -156,19 +225,35 @@ public class whiteArcherManager : MonoBehaviour
         AdicionarCasaSeVazia(posAtual.x - 1, posAtual.y - 1);
 
         // Adiciona casas em linha reta 
-        AdicionarCasaSeVazia(posAtual.x + 2, posAtual.y);
-        AdicionarCasaSeVazia(posAtual.x - 2, posAtual.y);
-        AdicionarCasaSeVazia(posAtual.x, posAtual.y + 2);
-        AdicionarCasaSeVazia(posAtual.x, posAtual.y - 2);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x + 2, posAtual.y);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x - 2, posAtual.y);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y + 2);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y - 2);
 
         // Adiciona casas adjacentes 
-        AdicionarCasaSeVazia(posAtual.x + 1, posAtual.y);
-        AdicionarCasaSeVazia(posAtual.x - 1, posAtual.y);
-        AdicionarCasaSeVazia(posAtual.x, posAtual.y + 1);
-        AdicionarCasaSeVazia(posAtual.x, posAtual.y - 1);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x + 1, posAtual.y);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x - 1, posAtual.y);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y + 1);
+        AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y - 1);
     }
 
     private void AdicionarCasaSeVazia(int x, int y)
+    {
+        if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
+        {
+            if (tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
+            {
+                GameObject casa = GameObject.Find($"Casa {x},{y}");
+                if (casa != null)
+                {
+                    casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
+                    casasDisponiveis.Add(casa);
+                }
+            }
+        }
+    }
+
+    private void AdicionarCasaSeVaziaSeVazia(int x, int y)
     {
         if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
         {
