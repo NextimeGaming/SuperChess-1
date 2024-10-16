@@ -11,7 +11,7 @@ public class whiteArcherManager : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
-    public TabuleiroDamas tabuleiro;
+    public TabuleiroDamas tabuleiro; 
     private List<GameObject> casasDisponiveis = new List<GameObject>();
     private Dictionary<GameObject, Color> casaCoresOriginais = new Dictionary<GameObject, Color>();
 
@@ -21,11 +21,14 @@ public class whiteArcherManager : MonoBehaviour
 
     private Vector2Int posAtual;
 
+    public AttackCircleManager attackCircleManager; // Referência ao AttackCircleManager
+
     private void Start()
     {
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
         tabuleiro = FindObjectOfType<TabuleiroDamas>();
+        attackCircleManager = FindObjectOfType<AttackCircleManager>(); // Inicia area de ataque ( ate que fim , progresso)
 
         foreach (var casa in GameObject.FindGameObjectsWithTag("Casa"))
         {
@@ -89,6 +92,9 @@ public class whiteArcherManager : MonoBehaviour
         rend.material.color = hoverColor;
         MostrarCasasDisponiveisArqueiro();
 
+        
+        MostrarAreaAtaque();
+
         StartCoroutine(WaitForClick());
     }
 
@@ -98,6 +104,9 @@ public class whiteArcherManager : MonoBehaviour
         rend.material.color = startColor;
         RestaurarCasasDisponiveis();
         casasDisponiveis.Clear();
+
+        
+        attackCircleManager.HideAttackCircle();
     }
 
     private IEnumerator WaitForClick()
@@ -130,6 +139,37 @@ public class whiteArcherManager : MonoBehaviour
         }
     }
 
+    private void MostrarAreaAtaque()
+    {
+        Vector2Int[] direcoes = new Vector2Int[]
+        {
+            new Vector2Int(1, 0),   // Direita
+            new Vector2Int(-1, 0),  // Esquerda
+            new Vector2Int(0, 1),   // Cima
+            new Vector2Int(0, -1),  // Baixo
+            new Vector2Int(1, 1),   // Diagonal direita-cima
+            new Vector2Int(1, -1),  // Diagonal direita-baixo
+            new Vector2Int(-1, 1),  // Diagonal esquerda-cima
+            new Vector2Int(-1, -1)  // Diagonal esquerda-baixo
+        };
+
+        foreach (var dir in direcoes)
+        {
+            Vector2Int novaPos = new Vector2Int(posAtual.x + dir.x, posAtual.y + dir.y);
+            MostrarCírculoSeValido(novaPos);
+        }
+    }
+
+    private void MostrarCírculoSeValido(Vector2Int novaPos)
+    {
+        if (novaPos.x >= 0 && novaPos.x < tabuleiro._casaOcupada.GetLength(0) &&
+            novaPos.y >= 0 && novaPos.y < tabuleiro._casaOcupada.GetLength(1))
+        {
+            Vector3 posicaoCírculo = new Vector3(novaPos.x, 1f, novaPos.y);
+            attackCircleManager.ShowAttackCircle(posicaoCírculo); // Exibe a merda do circulo
+        }
+    }
+
     private bool IsPositionValid(Vector3 targetPos)
     {
         return tabuleiro.IsPositionEmpty(targetPos) && IsAdjacent(targetPos) && IsDirectionFree(posAtual, targetPos);
@@ -150,12 +190,10 @@ public class whiteArcherManager : MonoBehaviour
         // Verifica se está movendo na horizontal
         if (deltaY == 0)
         {
-            
             if (deltaX > 0)
             {
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x + 1, 0, currentPos.y));
             }
-            
             else if (deltaX < 0)
             {
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x - 1, 0, currentPos.y));
@@ -164,52 +202,18 @@ public class whiteArcherManager : MonoBehaviour
         // Verifica se está movendo na vertical
         else if (deltaX == 0)
         {
-            
             if (deltaY > 0)
             {
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x, 0, currentPos.y + 1));
             }
-            
             else if (deltaY < 0)
             {
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x, 0, currentPos.y - 1));
             }
         }
 
-        // Para movimentos diagonais ou inválidos
+        // Para movimentos diagonais 
         return true;
-    }
-
-    private bool IsAdjacentHousesFree(Vector2Int currentPos)
-    {
-        // Verifica se as casas adjacentes estão vazias
-        int[][] directions = new int[][]
-        {
-            new int[] { 1, 0 }, // Direita
-            new int[] { -1, 0 }, // Esquerda
-            new int[] { 0, 1 }, // Cima
-            new int[] { 0, -1 }, // Baixo
-            new int[] { 1, 1 }, // Diagonal direita-cima
-            new int[] { 1, -1 }, // Diagonal direita-baixo
-            new int[] { -1, 1 }, // Diagonal esquerda-cima
-            new int[] { -1, -1 } // Diagonal esquerda-baixo
-        };
-
-        foreach (var dir in directions)
-        {
-            int x = currentPos.x + dir[0];
-            int y = currentPos.y + dir[1];
-
-            if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
-            {
-                if (!tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
-                {
-                    return false; // Casa ocupada
-                }
-            }
-        }
-
-        return true; // as casas estão livres
     }
 
     private void MostrarCasasDisponiveisArqueiro()
@@ -271,7 +275,7 @@ public class whiteArcherManager : MonoBehaviour
 
     private void RestaurarCasasDisponiveis()
     {
-        foreach (GameObject casa in casasDisponiveis)
+        foreach (var casa in casasDisponiveis)
         {
             if (casaCoresOriginais.TryGetValue(casa, out Color originalColor))
             {

@@ -3,7 +3,9 @@ guid: 78b905c9a3a36cc4db43f076536efd30
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tabuleiro: {instanceID: 0}
+  - attackCircleManager: {fileID: -3966711869297086282, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

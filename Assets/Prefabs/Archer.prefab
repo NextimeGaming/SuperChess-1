@@ -64,7 +64,7 @@ PrefabInstance:
       addedObject: {fileID: -5911075329397690323}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1926723121857557767}
+      addedObject: {fileID: -6692128261137716871}
   m_SourcePrefab: {fileID: 100100000, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
 --- !u!1 &2765123148830343212 stripped
 GameObject:
@@ -86,6 +86,7 @@ MonoBehaviour:
   hoverColor: {r: 0.24615297, g: 0.9622642, b: 0.14070843, a: 0}
   tabuleiro: {fileID: 0}
   moveSpeed: 2
+  attackCircleManager: {fileID: -3966711869297086282, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
 --- !u!65 &-5911075329397690323
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.008226521, y: 0.02000232, z: 0.010400702}
   m_Center: {x: 0.000016900016, y: -0.000026840251, z: -0.000048359867}
---- !u!114 &1926723121857557767
+--- !u!114 &-6692128261137716871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,3 +120,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712e2818a790eba44ba23079193957dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCirclePrefab: {fileID: 1584606354506550299, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
