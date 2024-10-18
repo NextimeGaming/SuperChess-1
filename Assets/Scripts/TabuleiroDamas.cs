@@ -25,11 +25,11 @@ public class TabuleiroDamas : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(mago);
+       // Instantiate(mago);
         _casaOcupada = new bool[tamanhoTabuleiro, tamanhoTabuleiro];
         CriarTabuleiroDamas();
-        AdicionarBuracos();
-        AdicionarElevacoes();
+      //  AdicionarBuracos();
+      //  AdicionarElevacoes();
         GerarPecas();
     }
 
@@ -94,7 +94,7 @@ public class TabuleiroDamas : MonoBehaviour
 
     private void AdicionarBuracos()
     {
-        float tamanhoCasa = 1.0f;
+      //  float tamanhoCasa = 1.0f;
         List<Vector2Int> posicoesDisponiveis = new List<Vector2Int>();
 
         // Definindo a área central do tabuleiro

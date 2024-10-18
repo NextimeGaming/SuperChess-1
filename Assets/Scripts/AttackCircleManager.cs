@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class AttackCircleManager : MonoBehaviour
 {
-    public GameObject attackCirclePrefab; 
+    public GameObject attackCirclePrefab,circulo;
     private GameObject currentAttackCircle;
+
+    public ParticleSystem attackParticles; // Adicione particulas
+
+   /* private void Start()
+    {
+        circulo = this.gameObject;
+
+    }*/
 
     public void ShowAttackCircle(Vector3 position)
     {
@@ -12,16 +20,28 @@ public class AttackCircleManager : MonoBehaviour
             Destroy(currentAttackCircle); // Remove o círculo anterior
         }
 
-        // Cria um novo círculo de ataque 
+        // Cria um círculo de ataque 
+        position.y = 0.1f;
         currentAttackCircle = Instantiate(attackCirclePrefab, position, Quaternion.identity);
-        currentAttackCircle.transform.localScale = new Vector3(1, 0.1f, 1); 
+        currentAttackCircle.transform.localScale = new Vector3(1, 1f, 1);
+
+        // Ativa o efeito de partículas
+        if (attackParticles != null)
+        {
+            ParticleSystem particles = Instantiate(attackParticles, position, Quaternion.identity);
+
+            particles.Play();
+        }
     }
 
     public void HideAttackCircle()
     {
-        if (currentAttackCircle != null)
-        {
-            Destroy(currentAttackCircle);
-        }
+        Destroy(circulo);
+        
+        
+      
+
+        
+       
     }
-}        // essa bosta ta me dando dor de cabeça , quero dormi kkk
+}

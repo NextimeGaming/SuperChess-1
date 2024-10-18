@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65,6 +69,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6692128261137716871}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7772308266152379929}
   m_SourcePrefab: {fileID: 100100000, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
 --- !u!1 &2765123148830343212 stripped
 GameObject:
@@ -86,7 +93,7 @@ MonoBehaviour:
   hoverColor: {r: 0.24615297, g: 0.9622642, b: 0.14070843, a: 0}
   tabuleiro: {fileID: 0}
   moveSpeed: 2
-  attackCircleManager: {fileID: -3966711869297086282, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
+  attackCircleManager: {fileID: -4331175690649331715, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
 --- !u!65 &-5911075329397690323
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -104,7 +111,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.008226521, y: 0.02000232, z: 0.010400702}
   m_Center: {x: 0.000016900016, y: -0.000026840251, z: -0.000048359867}
@@ -120,4 +127,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712e2818a790eba44ba23079193957dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCirclePrefab: {fileID: 1584606354506550299, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
+  attackCirclePrefab: {fileID: 3263921122093078746, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
+  circulo: {fileID: 0}
+  attackParticles: {fileID: 6316539527524425579, guid: de1dc415f01014d45ba87cd6792c8c76, type: 3}
+--- !u!64 &7772308266152379929
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2765123148830343212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8089699231438940418, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}

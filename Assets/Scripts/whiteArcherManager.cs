@@ -104,9 +104,13 @@ public class whiteArcherManager : MonoBehaviour
         rend.material.color = startColor;
         RestaurarCasasDisponiveis();
         casasDisponiveis.Clear();
+        foreach (GameObject c in GameObject.FindGameObjectsWithTag("circuloAtk"))
+        {
+          Destroy(c);
+        } 
 
-        
-        attackCircleManager.HideAttackCircle();
+
+            //attackCircleManager.HideAttackCircle();
     }
 
     private IEnumerator WaitForClick()

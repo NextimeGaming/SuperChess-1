@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Casa
   - ChessPawn
+  - Undefined
+  - circuloAtk
   layers:
   - Default
   - TransparentFX
