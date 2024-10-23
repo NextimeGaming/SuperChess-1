@@ -33,6 +33,20 @@ public class TabuleiroDamas : MonoBehaviour
         GerarPecas();
     }
 
+    public bool checaCasa(int x, int y)
+    {
+        if (x >= 0 && x < 10 && y >= 0 && y < 10)
+        {
+            if (_casaOcupada[x, y])
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        else return true ;
+    }
+
     private void Update() { }
 
     private void GerarPecas()
@@ -46,12 +60,14 @@ public class TabuleiroDamas : MonoBehaviour
                     Vector3 posicaoPeca = new Vector3(x, 0.3f, y);
                     Instantiate(pecaBranca, posicaoPeca, pecaBranca.transform.rotation);
                     pecaBranca.name = "peaoBranco";
+                    ocupaCasa((int)posicaoPeca.x, (int)posicaoPeca.z);
                 }
                 if (x == 9)
                 {
                     Vector3 posicaoPeca = new Vector3(x, 0.3f, y);
                     Instantiate(pecaPreta, posicaoPeca, pecaPreta.transform.rotation);
                     pecaPreta.name = "peaoPreto";
+                    ocupaCasa((int)posicaoPeca.x, (int)posicaoPeca.z);
                 }
                 
             }
@@ -67,7 +83,6 @@ public class TabuleiroDamas : MonoBehaviour
     public void desocupaCasa(int x, int y)
     {
         _casaOcupada[x, y] = false;
-
     }
 
     private void CriarTabuleiroDamas()
@@ -205,4 +220,11 @@ public class TabuleiroDamas : MonoBehaviour
         }
         return true; // A posição está vazia
     }
+}
+
+public enum GameState
+{
+    GenerateGrid = 0,
+    TurnoPlayer1 = 1,
+    TurnoPlayer2 = 2
 }

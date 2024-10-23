@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9160728629633531917}
   m_Layer: 0
   m_Name: Chess Pawn White
-  m_TagString: ChessPawn
+  m_TagString: pecaBranca
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -37,11 +37,5 @@ public class AttackCircleManager : MonoBehaviour
     public void HideAttackCircle()
     {
         Destroy(circulo);
-        
-        
-      
-
-        
-       
     }
 }

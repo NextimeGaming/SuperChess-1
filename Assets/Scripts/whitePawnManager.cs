@@ -13,6 +13,7 @@ public class WhitePawnManager : MonoBehaviour
 
     public float moveSpeed = 2f; // Velocidade de movimentação
     private Vector3 targetPosition; // Posição alvo para movimentação
+    private Vector3 posicaoOriginal;
     private bool isMoving = false; // Flag para verificar se a peça está se movendo
     public TabuleiroDamas tabuleiro; //variável para usar ao chamar objetos da classe tabuleiro
     public whiteArcherManager arqueiroBranco; //variável para usar ao chamar objetos da classe tabuleiro
@@ -65,7 +66,7 @@ public class WhitePawnManager : MonoBehaviour
             }
             else
             {
-                
+                posicaoOriginal = transform.position;
                 SelectPawn();
             }
         }
@@ -78,8 +79,7 @@ public class WhitePawnManager : MonoBehaviour
         promotePosition.y += 0.8f;
         Instantiate (whiteArcher, promotePosition, whiteArcher.transform.rotation);
         DeselectPawn ();
-        Destroy(peao);
-        
+        Destroy(peao);        
     }
 
     private void Update()
@@ -93,6 +93,7 @@ public class WhitePawnManager : MonoBehaviour
             else
             {
                 transform.position = targetPosition;
+                tabuleiro.ocupaCasa((int)targetPosition.x, (int)targetPosition.z);
                 isMoving = false; // Interrompe o movimento quando chega ao alvo
             }
         }
@@ -148,6 +149,7 @@ public class WhitePawnManager : MonoBehaviour
                                 {
                                     if (targetPos.x == c.transform.position.x && targetPos.y -0.3f == c.transform.position.y)
                                     {
+                                        tabuleiro.desocupaCasa((int)posicaoOriginal.x, (int)posicaoOriginal.z);
                                         isMoving = true;
                                         DeselectPawn(); // Deseleciona a peça após o movimento
                                         yield break; // Move quando a posição alvo é definida
