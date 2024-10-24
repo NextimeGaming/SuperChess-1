@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.24615297, g: 0.9622642, b: 0.14070843, a: 0}
+  asd: []
   peaoBranco: {fileID: 0}
   tabuleiro: {fileID: 0}
   moveSpeed: 2

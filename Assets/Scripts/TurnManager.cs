@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        EndTurn();
+        //EndTurn();
     }
     public void EndTurn()
     {

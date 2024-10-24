@@ -100,21 +100,16 @@ public class whiteArcherManager : MonoBehaviour
     {
         if (isMoving || selectedArcher != null)
             return;
-
-        //selectedArcher = this;
-
         selectedArcher = this;
+        peaoBranco.DeselectPawn();
         rend.material.color = hoverColor;
         tentativa();
-        //MostrarCasasDisponiveisArqueiro();
-
-        
+        //MostrarCasasDisponiveisArqueiro();        
         MostrarAreaAtaque();
-
         StartCoroutine(WaitForClick());
     }
 
-    private void DeselectArcher()
+    public void DeselectArcher()
     {
         selectedArcher = null;
         rend.material.color = startColor;

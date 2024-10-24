@@ -19,7 +19,7 @@ public class WhitePawnManager : MonoBehaviour
     public whiteArcherManager arqueiroBranco; //variável para usar ao chamar objetos da classe tabuleiro
     private List<GameObject> casasDisponiveis = new List<GameObject>(); // Casas disponíveis para movimento
     private Dictionary<GameObject, Color> casaCoresOriginais = new Dictionary<GameObject, Color>(); // Cores originais das casas
-    public GameObject whiteArcher, peao;
+    public GameObject whiteArcher, peao, whiteMage;
 
 
     public Vector2Int posAtual, novaPos;
@@ -61,7 +61,6 @@ public class WhitePawnManager : MonoBehaviour
         {
             if (selectedPawn == this)
             {
-                
                 DeselectPawn();
             }
             else
@@ -72,14 +71,24 @@ public class WhitePawnManager : MonoBehaviour
         }
     }
 
-    public void promote()
+    public void promoteArcher()
     {
         //promover peão para outra classe
         Vector3 promotePosition = this.transform.position;
         promotePosition.y += 0.8f;
-        Instantiate (whiteArcher, promotePosition, whiteArcher.transform.rotation);
-        DeselectPawn ();
-        Destroy(peao);        
+        Instantiate(whiteArcher, promotePosition, whiteArcher.transform.rotation);
+        DeselectPawn();
+        Destroy(peao);
+    }
+
+    public void promoteMage()
+    {
+        //promover peão para outra classe
+        Vector3 promotePosition = this.transform.position;
+        promotePosition.y += 1.1f;
+        Instantiate(whiteMage, promotePosition, whiteMage.transform.rotation);
+        DeselectPawn();
+        Destroy(peao);
     }
 
     private void Update()
@@ -106,13 +115,13 @@ public class WhitePawnManager : MonoBehaviour
 
         selectedPawn = this;
         rend.material.color = hoverColor; // Mantém a cor de seleção
-        MostrarCasasDisponiveis(); // Mostra a casas disponíveis para movimento
-
+        tentativa();
+        //MostrarCasasDisponiveis(); // Mostra a casas disponíveis para movimento
         StartCoroutine(WaitForClick());
     }
 
     
-    private void DeselectPawn()
+    public void DeselectPawn()
     {
         selectedPawn = null;
         rend.material.color = startColor; // Restaura a cor original
@@ -135,12 +144,14 @@ public class WhitePawnManager : MonoBehaviour
                         Vector3 targetPos = hit.point;
 
                         // Ajusta a posição alvo para o centro da casa
-                        targetPos = new Vector3(Mathf.Round(targetPos.x), transform.position.y, Mathf.Round(targetPos.z));
+                        targetPos = new Vector3((int)(targetPos.x), transform.position.y, transform.position.z);
+                        //targetPos = new Vector3((int)(targetPos.x), transform.position.y, (int)(targetPos.z));
 
                         // Verifica se a posição alvo é uma casa adjacente
-                        if (IsAdjacent(targetPos))
+                        //if (IsAdjacent(targetPos))
                         // Verifica se a posição é uma casa adjacente e se está vazia
-                        if (IsAdjacent(targetPos) && IsPositionEmpty(targetPos))
+                        //if (IsAdjacent(targetPos) && IsPositionEmpty(targetPos))
+                        if (IsPositionEmpty(targetPos))
                         {
                             targetPosition = targetPos;
 
@@ -165,18 +176,22 @@ public class WhitePawnManager : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(2))
             {
-                promote();
+                promoteArcher();
             }
-                yield return null; // Espera para verificar novamente
+            else if (Input.GetMouseButtonDown(1))
+            {
+                promoteMage();
+            }
+            yield return null; // Espera para verificar novamente
         }
     }
 
-    private bool IsAdjacent(Vector3 targetPos)
+    /*private bool IsAdjacent(Vector3 targetPos)
     {
         Vector3 currentPos = transform.position;
         float distance = Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z));
         return distance == 1.0f; // Verifica se a distância é exatamente uma casa
-    }
+    }*/
 
     private bool IsPositionEmpty(Vector3 targetPos)
     {
@@ -189,6 +204,40 @@ public class WhitePawnManager : MonoBehaviour
             }
         }
         return true; // A posição está vazia
+    }
+
+
+    public void tentativa()
+    {
+        casasDisponiveis.Clear();
+        Vector3 currentPos = transform.position;
+        posAtual = new Vector2Int((int)currentPos.x, (int)currentPos.z);
+
+        if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z) == false) //checa a casa da frente
+        {
+            AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z);
+
+            if ((tabuleiro.checaCasa((int)currentPos.x + 2, (int)currentPos.z) == false) && transform.position.x == 0)
+            {
+                AdicionarCasaSeVazia((int)currentPos.x + 2, (int)currentPos.z);
+            }
+        }
+    }
+
+    private void AdicionarCasaSeVazia(int x, int y)
+    {
+        if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
+        {
+            if (tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
+            {
+                GameObject casa = GameObject.Find($"Casa {x},{y}");
+                if (casa != null)
+                {
+                    casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
+                    casasDisponiveis.Add(casa);
+                }
+            }
+        }
     }
 
     private void MostrarCasasDisponiveis()

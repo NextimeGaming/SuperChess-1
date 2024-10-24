@@ -106,6 +106,7 @@ MonoBehaviour:
   arqueiroBranco: {fileID: 0}
   whiteArcher: {fileID: 0}
   peao: {fileID: 0}
+  whiteMage: {fileID: 0}
   posAtual: {x: 0, y: 0}
   novaPos: {x: 0, y: 0}
 --- !u!64 &6934689214910054404
