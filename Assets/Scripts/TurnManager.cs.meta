@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 273a597d947230349ae3a2066f72d4ae
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - whitePawnManager: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
+  - whiteArcherManager: {fileID: -3511678929620330142, guid: 16682b4c3274e0743b44da34b8916831, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,6 +13,7 @@ public class whiteArcherManager : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
+    public Vector2Int[] asd;
     public WhitePawnManager peaoBranco;
     public TabuleiroDamas tabuleiro; 
     private List<GameObject> casasDisponiveis = new List<GameObject>();
@@ -162,8 +163,9 @@ public class whiteArcherManager : MonoBehaviour
         }
     }
 
-    private void MostrarAreaAtaque()
+    public Array MostrarAreaAtaque()
     {
+        
         /*Vector2Int[] direcoes = new Vector2Int[]
         {
             new Vector2Int(1, 0),   // Direita
@@ -198,12 +200,14 @@ public class whiteArcherManager : MonoBehaviour
             new Vector2Int(1, -2),
             new Vector2Int(-1, -2),
         };
-
+     
+        asd = direcoes;
         foreach (var dir in direcoes)
         {
             Vector2Int novaPos = new Vector2Int(posAtual.x + dir.x, posAtual.y + dir.y);
             MostrarCírculoSeValido(novaPos);
         }
+        return direcoes;
     }
 
     private void MostrarCírculoSeValido(Vector2Int novaPos)
