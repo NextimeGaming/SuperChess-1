@@ -23,7 +23,7 @@ public class AttackCircleManager : MonoBehaviour
         // Cria um círculo de ataque 
         position.y = 0.1f;
         currentAttackCircle = Instantiate(attackCirclePrefab, position, Quaternion.identity);
-        currentAttackCircle.transform.localScale = new Vector3(1, 1f, 1);
+        currentAttackCircle.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
 
         // Ativa o efeito de partículas
         if (attackParticles != null)

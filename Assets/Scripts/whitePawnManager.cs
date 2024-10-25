@@ -15,12 +15,18 @@ public class WhitePawnManager : MonoBehaviour
     private Vector3 targetPosition; // Posição alvo para movimentação
     private Vector3 posicaoOriginal;
     private bool isMoving = false; // Flag para verificar se a peça está se movendo
+    public bool canAct = false; // Indica se o peão pode agir
     public TabuleiroDamas tabuleiro; //variável para usar ao chamar objetos da classe tabuleiro
     public whiteArcherManager arqueiroBranco; //variável para usar ao chamar objetos da classe tabuleiro
     private List<GameObject> casasDisponiveis = new List<GameObject>(); // Casas disponíveis para movimento
     private Dictionary<GameObject, Color> casaCoresOriginais = new Dictionary<GameObject, Color>(); // Cores originais das casas
     public GameObject whiteArcher, peao, whiteMage;
+    
 
+    // Outros métodos e variáveis...
+
+    private TurnManager turnManager; // Adiciona referência ao TurnManager
+    private BattleManager battleManager; // Adiciona referência ao BattleManager
 
     public Vector2Int posAtual, novaPos;
 
@@ -56,6 +62,8 @@ public class WhitePawnManager : MonoBehaviour
     }
 
     private void OnMouseDown()
+
+
     {
         if (mouseOver)
         {
@@ -67,6 +75,17 @@ public class WhitePawnManager : MonoBehaviour
             {
                 posicaoOriginal = transform.position;
                 SelectPawn();
+
+
+                if (canAct)
+                {
+                    // Lógica de seleção ou ação
+                    // Exemplo de chamar o BattleManager
+                    battleManager.Attack(transform.position); // Chama ataque com a posição atual
+                    Debug.LogError("Attack");
+                    return;
+
+                }
             }
         }
     }
@@ -105,6 +124,28 @@ public class WhitePawnManager : MonoBehaviour
                 tabuleiro.ocupaCasa((int)targetPosition.x, (int)targetPosition.z);
                 isMoving = false; // Interrompe o movimento quando chega ao alvo
             }
+        }
+    }
+
+    public void EnableActions()
+    {
+        canAct = true; // Permite que o peão atue
+        // Lógica adicional para habilitar ações, se necessário
+    }
+    public void DisableActions()
+    {
+        canAct = false; // Impede que o peão atue
+                        // Outras lógicas para desabilitar ações, se necessário
+    } 
+
+    public void Move(Vector3 targetPosition)
+    {
+        if (canAct)
+        {
+            // Implementar movimento
+            transform.position = targetPosition;
+            DisableActions();
+            turnManager.EndTurn(); // Finaliza o turno após o movimento
         }
     }
 

@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.41385686, g: 0.8773585, b: 0.30210927, a: 0}
   moveSpeed: 2
+  canAct: 0
   tabuleiro: {fileID: 0}
   arqueiroBranco: {fileID: 0}
   whiteArcher: {fileID: 0}

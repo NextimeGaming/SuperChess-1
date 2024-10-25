@@ -59,10 +59,10 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4fa19b76a0320404a90fed9826170a34, type: 2}
+      objectReference: {fileID: 2100000, guid: 13c13ff110b1ff94c9f2dcc976832b02, type: 2}
     - target: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: m_Name
-      value: Archer
+      value: BlackArcher
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: m_TagString
@@ -105,12 +105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.24615297, g: 0.9622642, b: 0.14070843, a: 0}
   asd: []
-  peaoBranco: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
+  peaoBranco: {fileID: 0}
   tabuleiro: {fileID: 0}
   moveSpeed: 2
-  attackRange: 3
-  turnManager: {fileID: 6624266347020599558, guid: 39a52d707db02a74dbedb5966aaa3f4e, type: 3}
-  battleManager: {fileID: 6084751253778790735, guid: bf5c7c45d7d8a524690f3cfa052c75ca, type: 3}
   attackCircleManager: {fileID: -4331175690649331715, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
   vidaAtual: 0
   vidaMaxima: 0

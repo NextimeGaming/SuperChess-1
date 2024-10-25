@@ -1,40 +1,46 @@
 using UnityEngine;
 
-
 public class TurnManager : MonoBehaviour
 {
-    //public enum turn { geratabuleiro = 0,turnplayer1 = 1,turnplayer2 = 2};
-    public enum turn { player1, player2 };
-    public turn currentTurn =  turn.player1;
+    public enum Turn { player1, player2 }
+    public Turn currentTurn;
 
     public WhitePawnManager whitePawnManager;
-    public whiteArcherManager   whiteArcherManager;
+    public whiteArcherManager whiteArcherManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void Start()
+    void Start()
     {
-        whitePawnManager = FindAnyObjectByType<WhitePawnManager>();
-        whiteArcherManager = FindAnyObjectByType<whiteArcherManager>();
-        
+        currentTurn = Turn.player1; // Inicia com o jogador 1
+        StartTurn();
     }
 
-    // Update is called once per frame
-    public void Update()
+    public void StartTurn()
     {
-        //EndTurn();
+        // Ativa as acoes do jogador atual
+        if (currentTurn == Turn.player1)
+        {
+            whitePawnManager.EnableActions();
+        }
+        else
+        {
+            whiteArcherManager.EnableActions();
+        }
     }
+
     public void EndTurn()
     {
-        if (currentTurn == turn.player1)
-            currentTurn = turn.player2;
-
-        else  
-        { currentTurn = turn.player1; 
-            Debug.Log(turn.player1);
-        
+        // Desativa as acoes do jogador atual
+        if (currentTurn == Turn.player1)
+        {
+            whitePawnManager.DisableActions();
         }
-        
+        else
+        {
+            whiteArcherManager.DisableActions();
+        }
 
-        
+        // Troca de turno
+        currentTurn = (currentTurn == Turn.player1) ? Turn.player2 : Turn.player1;
+        StartTurn(); // Inicie o turno do próximo jogador
     }
 }

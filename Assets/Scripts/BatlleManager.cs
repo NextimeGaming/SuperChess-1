@@ -1,38 +1,49 @@
 using UnityEngine;
 
-public class BatlleManager : MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
-    public TurnManager TurnManager;
+    public TurnManager turnManager;
     public AttackCircleManager attackCircleManager;
     public WhitePawnManager whitePawnManager;
-    public whiteArcherManager whiteArcherManager;   
-   
+    public whiteArcherManager whiteArcherManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TurnManager = FindAnyObjectByType<TurnManager>();
+        turnManager = FindAnyObjectByType<TurnManager>();
         attackCircleManager = FindAnyObjectByType<AttackCircleManager>();
         whitePawnManager = FindAnyObjectByType<WhitePawnManager>();
-        whiteArcherManager = FindAnyObjectByType< whiteArcherManager>();
+        whiteArcherManager = FindAnyObjectByType<whiteArcherManager>();
     }
-    public void Attack (Vector3 targetPosition)
+
+    public void Attack(Vector3 targetPosition)
     {
-        if (TurnManager.currentTurn == TurnManager.turn.player1)
+        if (turnManager.currentTurn == TurnManager.Turn.player1)
         {
-            Vector2Int[] dsa = whiteArcherManager.asd;
-            foreach (var dsa2 in dsa)
+            if (whiteArcherManager.IsInAttackRange(targetPosition))
             {
-                
+                // Implementa a lógica de ataque
+                whiteArcherManager.IsInAttackRange(targetPosition);
+                turnManager.EndTurn(); // Finaliza o turno após atacar
             }
-
-
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Exemplo de como o ataque pode ser chamado
+        if (Input.GetMouseButtonDown(0) && turnManager.currentTurn == TurnManager.Turn.player1)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Casa"))
+                {
+                    Vector3 targetPosition = hit.point;
+                    Attack(targetPosition);
+                }
+            }
+        }
     }
 }

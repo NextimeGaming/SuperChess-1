@@ -22,6 +22,11 @@ public class whiteArcherManager : MonoBehaviour
     public float moveSpeed = 2f;
     private Vector3 targetPosition;
     private bool isMoving = false;
+  
+    public float attackRange = 3f; // Defina a distância do ataque
+    public TurnManager turnManager; // Adiciona o TurnManager
+    public BattleManager battleManager; // Adiciona o BattleManager
+    public bool canAct = false;
 
     private Vector2Int posAtual;
 
@@ -42,6 +47,8 @@ public class whiteArcherManager : MonoBehaviour
         tabuleiro = FindObjectOfType<TabuleiroDamas>();
         peaoBranco = FindObjectOfType<WhitePawnManager>();
         attackCircleManager = FindObjectOfType<AttackCircleManager>(); // Inicia area de ataque ( ate que fim , progresso)
+        turnManager = FindObjectOfType<TurnManager>(); // Encontra o TurnManager
+        battleManager = FindObjectOfType<BattleManager>(); // Encontra o BattleManager
 
         foreach (var casa in GameObject.FindGameObjectsWithTag("Casa"))
         {
@@ -65,6 +72,17 @@ public class whiteArcherManager : MonoBehaviour
             }
         }
     }
+    public void EnableActions()
+    {
+        canAct = true; // Permite que o arqueiro faca acoes
+        
+    }
+
+    public void DisableActions()
+    {
+        canAct = false; // Impede que o arqueiro faca acoes
+        
+    }
 
     private void OnMouseEnter()
     {
@@ -83,11 +101,18 @@ public class whiteArcherManager : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+
         if (mouseOver)
         {
             if (selectedArcher == this)
             {
                 DeselectArcher();
+
+
+                
+
+
             }
             else
             {
@@ -435,5 +460,10 @@ public class whiteArcherManager : MonoBehaviour
                 casa.GetComponent<Renderer>().material.color = originalColor; // Restaura a cor original
             }
         }
+    }
+
+    internal bool IsInAttackRange(Vector3 targetPosition)
+    {
+        throw new NotImplementedException();
     }
 }
