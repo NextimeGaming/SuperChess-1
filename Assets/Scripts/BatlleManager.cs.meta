@@ -5,9 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - turnManager: {fileID: 6624266347020599558, guid: 39a52d707db02a74dbedb5966aaa3f4e, type: 3}
-  - attackCircleManager: {fileID: -4331175690649331715, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
-  - whitePawnManager: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
-  - whiteArcherManager: {fileID: -3511678929620330142, guid: 16682b4c3274e0743b44da34b8916831, type: 3}
+  - pieceManager: {fileID: -5734510396016231252, guid: 6dde4c07c68ffa147904c1701b927de8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

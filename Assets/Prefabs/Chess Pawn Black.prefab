@@ -108,6 +108,8 @@ MonoBehaviour:
   whiteArcher: {fileID: 0}
   peao: {fileID: 0}
   whiteMage: {fileID: 0}
+  turnManager: {fileID: 0}
+  battleManager: {fileID: 0}
   posAtual: {x: 0, y: 0}
   novaPos: {x: 0, y: 0}
 --- !u!64 &6934689214910054404

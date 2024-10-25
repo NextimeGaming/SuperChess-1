@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273a597d947230349ae3a2066f72d4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTurn: 0
-  whitePawnManager: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
-  whiteArcherManager: {fileID: -3511678929620330142, guid: 16682b4c3274e0743b44da34b8916831, type: 3}
+  turnText: {fileID: 6404391605735047113, guid: 7a10e8825f4a9cf4a9d08759fcaa53ca, type: 3}
+  pieceManager: {fileID: 0}
 --- !u!114 &6449231379649269993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +60,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 6624266347020599558}
-  attackCircleManager: {fileID: -4331175690649331715, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
-  whitePawnManager: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
-  whiteArcherManager: {fileID: -3511678929620330142, guid: 16682b4c3274e0743b44da34b8916831, type: 3}
+  pieceManager: {fileID: 0}

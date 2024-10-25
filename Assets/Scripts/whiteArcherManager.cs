@@ -466,4 +466,14 @@ public class whiteArcherManager : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+
+    internal void UpdatePosition(Vector3 newPosition)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal bool CanMove(Vector3 targetPosition)
+    {
+        throw new NotImplementedException();
+    }
 }

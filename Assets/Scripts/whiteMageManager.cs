@@ -2,11 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class whiteMageManager : MonoBehaviour
 {
-
     private static whiteMageManager selectedMage = null;
 
     private bool mouseOver = false;
@@ -14,7 +12,6 @@ public class whiteMageManager : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
-    public Vector2Int[] asd;
     public WhitePawnManager peaoBranco;
     public whiteArcherManager arqueiroBranco;
     public TabuleiroDamas tabuleiro;
@@ -26,12 +23,10 @@ public class whiteMageManager : MonoBehaviour
     public float moveSpeed = 2f;
     private Vector3 targetPosition;
     private bool isMoving = false;
-
     private Vector2Int posAtual;
 
     public int vidaAtual, vidaMaxima, movimento, ataqueOriginal, ataqueAtual;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         vidaMaxima = 6;
@@ -43,14 +38,14 @@ public class whiteMageManager : MonoBehaviour
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
         tabuleiro = FindObjectOfType<TabuleiroDamas>();
-        peaoBranco = FindObjectOfType<WhitePawnManager>();        
+        peaoBranco = FindObjectOfType<WhitePawnManager>();
+
         foreach (var casa in GameObject.FindGameObjectsWithTag("Casa"))
         {
             casaCoresOriginais[casa] = casa.GetComponent<Renderer>().material.color;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isMoving)
@@ -102,11 +97,12 @@ public class whiteMageManager : MonoBehaviour
     {
         if (isMoving || selectedMage != null)
             return;
+
         selectedMage = this;
         rend.material.color = hoverColor;
         tentativa();
         MostrarAreaAtaque();
-        StartCoroutine(WaitForClick());
+        StartCoroutine(WaitForClick()); // Agora funciona corretamente
     }
 
     public void DeselectMage()
@@ -153,22 +149,19 @@ public class whiteMageManager : MonoBehaviour
         }
     }
 
-    public Array MostrarAreaAtaque()
+    public void MostrarAreaAtaque()
     {
         Vector2Int[] direcoes = new Vector2Int[]
         {
             new Vector2Int(1, 0),
             new Vector2Int(2, 0),
             new Vector2Int(3, 0),
-            
             new Vector2Int(0, 1),
             new Vector2Int(0, 2),
             new Vector2Int(0, 3),
-            
             new Vector2Int(0, -1),
             new Vector2Int(0, -2),
             new Vector2Int(0, -3),
-            
             new Vector2Int(-1, 0),
             new Vector2Int(-2, 0),
             new Vector2Int(-3, 0),
@@ -179,7 +172,6 @@ public class whiteMageManager : MonoBehaviour
             Vector2Int novaPos = new Vector2Int(posAtual.x + dir.x, posAtual.y + dir.y);
             MostrarCírculoSeValido(novaPos);
         }
-        return direcoes;
     }
 
     private void MostrarCírculoSeValido(Vector2Int novaPos)
@@ -188,7 +180,7 @@ public class whiteMageManager : MonoBehaviour
             novaPos.y >= 0 && novaPos.y < tabuleiro._casaOcupada.GetLength(1))
         {
             Vector3 posicaoCírculo = new Vector3(novaPos.x, 1f, novaPos.y);
-            attackCircleManager.ShowAttackCircle(posicaoCírculo); // Exibe a merda do circulo
+            attackCircleManager.ShowAttackCircle(posicaoCírculo);
         }
     }
 
@@ -201,7 +193,7 @@ public class whiteMageManager : MonoBehaviour
     {
         Vector3 currentPos = transform.position;
         float distance = Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z));
-        return distance <= 1.0f; // Permite movimento nas diagonais
+        return distance <= 1.0f;
     }
 
     private bool IsDirectionFree(Vector2Int currentPos, Vector3 targetPos)
@@ -209,7 +201,6 @@ public class whiteMageManager : MonoBehaviour
         int deltaX = (int)targetPos.x - currentPos.x;
         int deltaY = (int)targetPos.z - currentPos.y;
 
-        // Verifica se está movendo na horizontal
         if (deltaY == 0)
         {
             if (deltaX > 0)
@@ -221,7 +212,6 @@ public class whiteMageManager : MonoBehaviour
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x - 1, 0, currentPos.y));
             }
         }
-        // Verifica se está movendo na vertical
         else if (deltaX == 0)
         {
             if (deltaY > 0)
@@ -233,7 +223,6 @@ public class whiteMageManager : MonoBehaviour
                 return tabuleiro.IsPositionEmpty(new Vector3(currentPos.x, 0, currentPos.y - 1));
             }
         }
-        // Para movimentos diagonais 
         return true;
     }
 
@@ -243,18 +232,18 @@ public class whiteMageManager : MonoBehaviour
         Vector3 currentPos = transform.position;
         posAtual = new Vector2Int((int)currentPos.x, (int)currentPos.z);
 
-        if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z) == false) //checa a casa da frente
-            AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z);        
+        VerificarCasa(1, 0);  // Frente
+        VerificarCasa(-1, 0); // Atrás
+        VerificarCasa(0, 1);  // Direita
+        VerificarCasa(0, -1); // Esquerda
+    }
 
-        if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z) == false) //checa a casa de trás
-            AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z);
-        
-
-        if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z + 1) == false) //checa casa da esquerda
-            AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z + 1);
-
-        if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z - 1) == false) //checa casa da direita
-            AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z - 1);
+    private void VerificarCasa(int deltaX, int deltaY)
+    {
+        int novaX = (int)transform.position.x + deltaX;
+        int novaY = (int)transform.position.z + deltaY;
+        if (!tabuleiro.checaCasa(novaX, novaY))
+            AdicionarCasaSeVazia(novaX, novaY);
     }
 
     private void AdicionarCasaSeVazia(int x, int y)
@@ -266,7 +255,7 @@ public class whiteMageManager : MonoBehaviour
                 GameObject casa = GameObject.Find($"Casa {x},{y}");
                 if (casa != null)
                 {
-                    casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
+                    casa.GetComponent<Renderer>().material.color = Color.yellow;
                     casasDisponiveis.Add(casa);
                 }
             }
@@ -279,9 +268,18 @@ public class whiteMageManager : MonoBehaviour
         {
             if (casaCoresOriginais.TryGetValue(casa, out Color originalColor))
             {
-                casa.GetComponent<Renderer>().material.color = originalColor; // Restaura a cor original
+                casa.GetComponent<Renderer>().material.color = originalColor;
             }
         }
     }
 
+    internal bool CanMove(Vector3 targetPosition)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void UpdatePosition(Vector3 newPosition)
+    {
+        throw new NotImplementedException();
+    }
 }

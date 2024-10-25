@@ -1,46 +1,52 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
+    // Enum para representar os turnos
     public enum Turn { player1, player2 }
-    public Turn currentTurn;
 
-    public WhitePawnManager whitePawnManager;
-    public whiteArcherManager whiteArcherManager;
+    // Turno atual
+    public Turn currentTurn { get; private set; }
 
-    void Start()
+    // Texto para exibir o turno atual
+    public Text turnText;
+
+    // Gerenciador de peças
+    public PieceManager pieceManager;
+
+    private void Start()
     {
-        currentTurn = Turn.player1; // Inicia com o jogador 1
+        // Inicia com o jogador 1
+        currentTurn = Turn.player1;
         StartTurn();
     }
 
+    // Inicia o turno do jogador atual
     public void StartTurn()
     {
-        // Ativa as acoes do jogador atual
-        if (currentTurn == Turn.player1)
-        {
-            whitePawnManager.EnableActions();
-        }
-        else
-        {
-            whiteArcherManager.EnableActions();
-        }
+        NotifyCurrentTurn();
+        pieceManager.NotifyPieceManager(currentTurn);
     }
 
-    public void EndTurn()
+    // Notifica os jogadores sobre o turno atual
+    public void NotifyCurrentTurn()
     {
-        // Desativa as acoes do jogador atual
-        if (currentTurn == Turn.player1)
-        {
-            whitePawnManager.DisableActions();
-        }
-        else
-        {
-            whiteArcherManager.DisableActions();
-        }
+        turnText.text = $"Turno atual: {currentTurn}";
+        Debug.Log($"Turno atual: {currentTurn}");
+    }
 
-        // Troca de turno
+    // Troca o turno
+    public void SwitchTurn()
+    {
         currentTurn = (currentTurn == Turn.player1) ? Turn.player2 : Turn.player1;
-        StartTurn(); // Inicie o turno do próximo jogador
+        StartTurn();
+    }
+
+    internal void EndTurn()
+    {
+        throw new NotImplementedException();
     }
 }
+

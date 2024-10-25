@@ -1,32 +1,30 @@
-using UnityEngine; 
-using System.Collections; 
-using System.Collections.Generic; 
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class WhitePawnManager : MonoBehaviour
 {
-    private static WhitePawnManager selectedPawn = null; // Peça atualmente selecionada
+    private static WhitePawnManager selectedPawn = null;
 
-    private bool mouseOver = false; //aciona ao passar o mouse em cima do peão
-    public Color hoverColor; //definindo cor ao passar mouse em cima do peão
-    private Renderer rend; //variável para renderer
-    private Color startColor; //definindo cor inicial da peça
+    private bool mouseOver = false;
+    public Color hoverColor;
+    private Renderer rend;
+    private Color startColor;
 
-    public float moveSpeed = 2f; // Velocidade de movimentação
-    private Vector3 targetPosition; // Posição alvo para movimentação
+    public float moveSpeed = 2f;
+    private Vector3 targetPosition;
     private Vector3 posicaoOriginal;
-    private bool isMoving = false; // Flag para verificar se a peça está se movendo
-    public bool canAct = false; // Indica se o peão pode agir
-    public TabuleiroDamas tabuleiro; //variável para usar ao chamar objetos da classe tabuleiro
-    public whiteArcherManager arqueiroBranco; //variável para usar ao chamar objetos da classe tabuleiro
-    private List<GameObject> casasDisponiveis = new List<GameObject>(); // Casas disponíveis para movimento
-    private Dictionary<GameObject, Color> casaCoresOriginais = new Dictionary<GameObject, Color>(); // Cores originais das casas
+    private bool isMoving = false;
+    public bool canAct = false;
+    public TabuleiroDamas tabuleiro;
+    public whiteArcherManager arqueiroBranco;
+    private List<GameObject> casasDisponiveis = new List<GameObject>();
+    private Dictionary<GameObject, Color> casaCoresOriginais = new Dictionary<GameObject, Color>();
     public GameObject whiteArcher, peao, whiteMage;
-    
 
-    // Outros métodos e variáveis...
-
-    private TurnManager turnManager; // Adiciona referência ao TurnManager
-    private BattleManager battleManager; // Adiciona referência ao BattleManager
+    public TurnManager turnManager;
+    public BattleManager battleManager;
 
     public Vector2Int posAtual, novaPos;
 
@@ -35,6 +33,7 @@ public class WhitePawnManager : MonoBehaviour
         peao = this.gameObject;
         tabuleiro = FindObjectOfType<TabuleiroDamas>();
         arqueiroBranco = FindObjectOfType<whiteArcherManager>();
+        battleManager = FindObjectOfType<BattleManager>(); // Adicionada inicialização do BattleManager
 
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
@@ -54,16 +53,14 @@ public class WhitePawnManager : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (selectedPawn != this) // Não altera a cor se a peça estiver selecionada
+        if (selectedPawn != this)
         {
             rend.material.color = startColor;
         }
         mouseOver = false;
     }
 
-    private void OnMouseDown()
-
-
+    public void OnMouseDown()
     {
         if (mouseOver)
         {
@@ -76,15 +73,14 @@ public class WhitePawnManager : MonoBehaviour
                 posicaoOriginal = transform.position;
                 SelectPawn();
 
-
-                if (canAct)
+                if (canAct && battleManager != null) // Verifica se battleManager não é nulo
                 {
-                    // Lógica de seleção ou ação
-                    // Exemplo de chamar o BattleManager
-                    battleManager.Attack(transform.position); // Chama ataque com a posição atual
-                    Debug.LogError("Attack");
+                    battleManager.Attack(transform.position);
                     return;
-
+                }
+                else if (battleManager == null)
+                {
+                    Debug.LogError("battleManager is null! Please assign it in the inspector or initialize properly.");
                 }
             }
         }
@@ -92,7 +88,6 @@ public class WhitePawnManager : MonoBehaviour
 
     public void promoteArcher()
     {
-        //promover peão para outra classe
         Vector3 promotePosition = this.transform.position;
         promotePosition.y += 0.8f;
         Instantiate(whiteArcher, promotePosition, whiteArcher.transform.rotation);
@@ -102,7 +97,6 @@ public class WhitePawnManager : MonoBehaviour
 
     public void promoteMage()
     {
-        //promover peão para outra classe
         Vector3 promotePosition = this.transform.position;
         promotePosition.y += 1.1f;
         Instantiate(whiteMage, promotePosition, whiteMage.transform.rotation);
@@ -122,30 +116,28 @@ public class WhitePawnManager : MonoBehaviour
             {
                 transform.position = targetPosition;
                 tabuleiro.ocupaCasa((int)targetPosition.x, (int)targetPosition.z);
-                isMoving = false; // Interrompe o movimento quando chega ao alvo
+                isMoving = false;
             }
         }
     }
 
     public void EnableActions()
     {
-        canAct = true; // Permite que o peão atue
-        // Lógica adicional para habilitar ações, se necessário
+        canAct = true;
     }
+
     public void DisableActions()
     {
-        canAct = false; // Impede que o peão atue
-                        // Outras lógicas para desabilitar ações, se necessário
-    } 
+        canAct = false;
+    }
 
     public void Move(Vector3 targetPosition)
     {
         if (canAct)
         {
-            // Implementar movimento
             transform.position = targetPosition;
             DisableActions();
-            turnManager.EndTurn(); // Finaliza o turno após o movimento
+            turnManager.EndTurn();
         }
     }
 
@@ -155,18 +147,16 @@ public class WhitePawnManager : MonoBehaviour
             return;
 
         selectedPawn = this;
-        rend.material.color = hoverColor; // Mantém a cor de seleção
+        rend.material.color = hoverColor;
         tentativa();
-        //MostrarCasasDisponiveis(); // Mostra a casas disponíveis para movimento
         StartCoroutine(WaitForClick());
     }
 
-    
     public void DeselectPawn()
     {
         selectedPawn = null;
-        rend.material.color = startColor; // Restaura a cor original
-        RestaurarCasasDisponiveis(); // Restaura a cor das casas
+        rend.material.color = startColor;
+        RestaurarCasasDisponiveis();
     }
 
     private IEnumerator WaitForClick()
@@ -183,34 +173,22 @@ public class WhitePawnManager : MonoBehaviour
                     if (hit.collider.CompareTag("Casa"))
                     {
                         Vector3 targetPos = hit.point;
-
-                        // Ajusta a posição alvo para o centro da casa
                         targetPos = new Vector3((int)(targetPos.x), transform.position.y, transform.position.z);
-                        //targetPos = new Vector3((int)(targetPos.x), transform.position.y, (int)(targetPos.z));
 
-                        // Verifica se a posição alvo é uma casa adjacente
-                        //if (IsAdjacent(targetPos))
-                        // Verifica se a posição é uma casa adjacente e se está vazia
-                        //if (IsAdjacent(targetPos) && IsPositionEmpty(targetPos))
                         if (IsPositionEmpty(targetPos))
                         {
                             targetPosition = targetPos;
 
-                            //verificar se a casa é na frente do peão
                             foreach (GameObject c in casasDisponiveis)
+                            {
+                                if (targetPos.x == c.transform.position.x && targetPos.y - 0.3f == c.transform.position.y)
                                 {
-                                    if (targetPos.x == c.transform.position.x && targetPos.y -0.3f == c.transform.position.y)
-                                    {
-                                        tabuleiro.desocupaCasa((int)posicaoOriginal.x, (int)posicaoOriginal.z);
-                                        isMoving = true;
-                                        DeselectPawn(); // Deseleciona a peça após o movimento
-                                        yield break; // Move quando a posição alvo é definida
-                                    }                                        
+                                    tabuleiro.desocupaCasa((int)posicaoOriginal.x, (int)posicaoOriginal.z);
+                                    isMoving = true;
+                                    DeselectPawn();
+                                    yield break;
                                 }
-
-                            //isMoving = true;
-                            //DeselectPawn(); // Deseleciona a peça após o movimento
-                            //yield break; // Move quando a posição alvo é definida
+                            }
                         }
                     }
                 }
@@ -223,30 +201,22 @@ public class WhitePawnManager : MonoBehaviour
             {
                 promoteMage();
             }
-            yield return null; // Espera para verificar novamente
+            yield return null;
         }
     }
-
-    /*private bool IsAdjacent(Vector3 targetPos)
-    {
-        Vector3 currentPos = transform.position;
-        float distance = Vector3.Distance(new Vector3(currentPos.x, 0, currentPos.z), new Vector3(targetPos.x, 0, targetPos.z));
-        return distance == 1.0f; // Verifica se a distância é exatamente uma casa
-    }*/
 
     private bool IsPositionEmpty(Vector3 targetPos)
     {
         Collider[] hitColliders = Physics.OverlapBox(targetPos, new Vector3(0.5f, 0.1f, 0.5f));
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag("ChessPawn")) // Verifica se há uma peça na posição
+            if (hitCollider.CompareTag("ChessPawn"))
             {
-                return false; // A posição está ocupada
+                return false;
             }
         }
-        return true; // A posição está vazia
+        return true;
     }
-
 
     public void tentativa()
     {
@@ -254,11 +224,11 @@ public class WhitePawnManager : MonoBehaviour
         Vector3 currentPos = transform.position;
         posAtual = new Vector2Int((int)currentPos.x, (int)currentPos.z);
 
-        if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z) == false) //checa a casa da frente
+        if (!tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z))
         {
             AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z);
 
-            if ((tabuleiro.checaCasa((int)currentPos.x + 2, (int)currentPos.z) == false) && transform.position.x == 0)
+            if (!tabuleiro.checaCasa((int)currentPos.x + 2, (int)currentPos.z) && transform.position.x == 0)
             {
                 AdicionarCasaSeVazia((int)currentPos.x + 2, (int)currentPos.z);
             }
@@ -274,43 +244,8 @@ public class WhitePawnManager : MonoBehaviour
                 GameObject casa = GameObject.Find($"Casa {x},{y}");
                 if (casa != null)
                 {
-                    casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
+                    casa.GetComponent<Renderer>().material.color = Color.yellow;
                     casasDisponiveis.Add(casa);
-                }
-            }
-        }
-    }
-
-    private void MostrarCasasDisponiveis()
-    {
-        casasDisponiveis.Clear(); // Limpa a lista anterior
-
-        Vector3 currentPos = transform.position;
-        // Vector2Int posAtual = new Vector2Int(Mathf.RoundToInt(currentPos.x), Mathf.RoundToInt(currentPos.z));
-        posAtual = new Vector2Int(Mathf.RoundToInt(currentPos.x), Mathf.RoundToInt(currentPos.z));
-
-        for (int dx = -1; dx <= 1; dx++)
-        {
-            for (int dz = -1; dz <= 1; dz++)
-            {
-                if (Mathf.Abs(dx) == Mathf.Abs(dz)) continue; // Ignora diagonais
-
-                //Vector2Int novaPos = new Vector2Int(posAtual.x + dx, posAtual.y + dz);
-                //Vector2Int novaPos = new Vector2Int(posAtual.x + 1, posAtual.y);
-                novaPos = new Vector2Int(posAtual.x + 1, posAtual.y);
-                if (novaPos.x >= 0 && novaPos.x < tabuleiro._casaOcupada.GetLength(0) && novaPos.y >= 0 && novaPos.y < tabuleiro._casaOcupada.GetLength(1))
-                {
-                    // Verifica se a posição está vazia
-                    if (tabuleiro.IsPositionEmpty(new Vector3(novaPos.x, 0, novaPos.y)))
-                    {
-                        // Destaca a casa
-                        GameObject casa = GameObject.Find($"Casa {novaPos.x},{novaPos.y}");
-                        if (casa != null)
-                        {
-                            casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
-                            casasDisponiveis.Add(casa);
-                        }
-                    }
                 }
             }
         }
@@ -322,8 +257,18 @@ public class WhitePawnManager : MonoBehaviour
         {
             if (casaCoresOriginais.TryGetValue(casa, out Color originalColor))
             {
-                casa.GetComponent<Renderer>().material.color = originalColor; // Restaura a cor original
+                casa.GetComponent<Renderer>().material.color = originalColor;
             }
         }
+    }
+
+    internal bool CanMove(Vector3 targetPosition)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void UpdatePosition(Vector3 newPosition)
+    {
+        throw new NotImplementedException();
     }
 }
