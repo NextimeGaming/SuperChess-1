@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: m_ReceiveGI
       value: 1
       objectReference: {fileID: 0}
@@ -59,7 +63,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4fa19b76a0320404a90fed9826170a34, type: 2}
+      objectReference: {fileID: 2100000, guid: a6e11338105141a41bc0001f85a9edb2, type: 2}
     - target: {fileID: 919132149155446097, guid: 23d2ee4bd3893b846bc6094393d2ca12, type: 3}
       propertyPath: m_Name
       value: Archer
