@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mage
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 25ce5f79237602f48b1414ffc7af2c26, type: 3}
+      propertyPath: m_TagString
+      value: pecaBranca
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -114,9 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.24705882, g: 0.9607843, b: 0.14117648, a: 0}
-  asd: []
-  peaoBranco: {fileID: 0}
-  arqueiroBranco: {fileID: 0}
+  peaoBranco: {fileID: -7535596328280824895, guid: 05af2229ca5f92e439d8b8400047987c, type: 3}
+  arqueiroBranco: {fileID: -1564537162680010037, guid: 8d1b82973665c7743945e8da42601665, type: 3}
   tabuleiro: {fileID: 0}
   attackCircleManager: {fileID: -4331175690649331715, guid: 1e2fb287bb77e1541841c7d4cc287a91, type: 3}
   moveSpeed: 2

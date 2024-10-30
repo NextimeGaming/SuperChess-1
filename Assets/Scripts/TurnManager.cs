@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
-    // Enum para representar os turnos
+    //  para representar os turnos
     public enum Turn { player1, player2 }
 
     // Turno atual
@@ -49,4 +49,3 @@ public class TurnManager : MonoBehaviour
         throw new NotImplementedException();
     }
 }
-

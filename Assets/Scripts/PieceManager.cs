@@ -28,7 +28,7 @@ public class PieceManager : MonoBehaviour
         pieces.Add("WhiteArcher", whiteArcherManager.gameObject);
         pieces.Add("WhiteMage", whiteMageManager.gameObject);
 
-        // Adiciona as peças pretas (faltando)
+        // Adiciona as peças pretas (futuramente você pode adicionar)
         // pieces.Add("BlackPawn", blackPawnManager.gameObject);
         // pieces.Add("BlackArcher", blackArcherManager.gameObject);
     }
@@ -36,10 +36,10 @@ public class PieceManager : MonoBehaviour
     // Notifica as peças sobre o turno atual
     public void NotifyPieceManager(TurnManager.Turn turn)
     {
-        // Notifique as peças sobre o turno atual aqui
+        // Aqui você pode habilitar ou desabilitar peças com base no turno atual
         Debug.Log($"Turno atual: {turn}");
 
-        // Atualize as peças conforme necessário (faltando)
+        // Adicione lógica para ativar/desativar peças aqui, se necessário
     }
 
     // Retorna uma peça específica
@@ -57,7 +57,7 @@ public class PieceManager : MonoBehaviour
             return false;
         }
 
-        //  verificação para o gerenciador 
+        // Verificação para o gerenciador 
         switch (pieceName)
         {
             case "WhiteMage":
@@ -80,13 +80,12 @@ public class PieceManager : MonoBehaviour
             return;
         }
 
-        // atualização para o gerenciador 
+        // Atualização para o gerenciador 
         switch (pieceName)
         {
             case "WhiteMage":
                 whiteMageManager.UpdatePosition(newPosition);
                 break;
-
             case "WhitePawn":
                 whitePawnManager.UpdatePosition(newPosition);
                 break;
