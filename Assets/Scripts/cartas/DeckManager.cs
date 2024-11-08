@@ -10,6 +10,7 @@ public class Deck : MonoBehaviour
     {
         // Preenche o deck com as cartas disponíveis
         CriarDeck();
+        
     }
 
     // Cria um deck de cartas 
@@ -17,6 +18,10 @@ public class Deck : MonoBehaviour
     {
         cartasNoDeck = new List<Carta>(cartasDisponiveis);
         EmbaralharDeck();
+        foreach (Carta carta in cartasNoDeck)
+        {
+            Instantiate(carta);
+        }
     }
 
     // Função para embaralhar o deck

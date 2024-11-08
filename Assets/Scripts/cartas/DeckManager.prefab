@@ -44,5 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc61e93006efe74e809d26cbb20c5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartasDisponiveis: []
-  cartasNoDeck: []
+  cartasDisponiveis:
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  cartasNoDeck:
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+  - {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}

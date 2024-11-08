@@ -460,6 +460,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+      propertyPath: tipo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+      propertyPath: descricao
+      value: ataque
+      objectReference: {fileID: 0}
     - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.70410675
@@ -595,6 +603,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartasNoDeck.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: 'cartasNoDeck.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartasDisponiveis.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: 'cartasDisponiveis.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: 'cartasDisponiveis.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1779710033289266890, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
     - target: {fileID: 3537720184701646647, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
       propertyPath: m_Name
       value: DeckManager
