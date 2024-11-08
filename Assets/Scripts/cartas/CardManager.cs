@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TipoCarta
 {
     transformacao,
     HabilidadeEspecial,
-    magia
+    Campo
 }
 
-public class Carta : MonoBehaviour
+
+public class CardManager : MonoBehaviour
 {
     public string nome; // Nome da carta
     public TipoCarta tipo; // Tipo de carta (Magia, Habilidade, transformaçao )
@@ -25,7 +27,7 @@ public class Carta : MonoBehaviour
             case TipoCarta.HabilidadeEspecial:
                 AplicarHabilidadeEspecial(tabuleiro, pieceManager);
                 break;
-            case TipoCarta.magia:
+            case TipoCarta.Campo:
                 AplicarEvento(tabuleiro, pieceManager);
                 break;
         }

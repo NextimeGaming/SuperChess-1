@@ -452,63 +452,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40465f88f40d6fd47933fbeaa39a8510, type: 3}
---- !u!1001 &3288914133941466490
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.70410675
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.045816768
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.50230646
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932962009736228817, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4917290006511803729, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
-      propertyPath: m_Name
-      value: CardManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 29dfbb5c329d0064e9fcf70bad65c074, type: 3}
 --- !u!1001 &4070423835932139138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,6 +538,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartaCampo
+      value: 
+      objectReference: {fileID: 4568338930761103359, guid: d0a16d27716fae44c85a2d5087475b02, type: 3}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartaHabilidade
+      value: 
+      objectReference: {fileID: 8534362361509600818, guid: d98d92ce058cbff48a33060bb3d7ea0c, type: 3}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartaTransformacao
+      value: 
+      objectReference: {fileID: 7625577581984665916, guid: e061c9474e6612f4a9b9c0a24a1746a4, type: 3}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartasNoDeck.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2084145225207870703, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
+      propertyPath: cartasDisponiveis.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3537720184701646647, guid: 7b4d3bf4b1ad5a849becc23dfd876f2d, type: 3}
       propertyPath: m_Name
       value: DeckManager
@@ -711,5 +674,4 @@ SceneRoots:
   - {fileID: 4070423835932139138}
   - {fileID: 1833025189431832683}
   - {fileID: 8671637390031434544}
-  - {fileID: 3288914133941466490}
   - {fileID: 8185258034441074925}
