@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nome: 
-  tipo: 0
+  tipo: 2
   descricao: 
-  imagem: {fileID: 0}
+  imagem: {fileID: 151837082566884266, guid: 65e5020e24bc8ed4eb65384c298e9a85, type: 3}
