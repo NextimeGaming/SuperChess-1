@@ -54,3 +54,6 @@ public class CardManager : MonoBehaviour
         Debug.Log($"Evento aplicado: {nome}");
     }
 }
+
+
+// testando github
