@@ -32,15 +32,15 @@ public class whiteArcherManager : MonoBehaviour
 
     public AttackCircleManager attackCircleManager; // Referência ao AttackCircleManager
 
-    public int vidaAtual, vidaMaxima, movimento, ataqueOriginal, ataqueAtual;
+    public int vidaAtual, vidaMax, movimento, ataque, ataqueAtual;
 
     private void Start()
     {
-        vidaMaxima = 10;
-        vidaAtual = vidaMaxima;
+        vidaMax = 10;
+        vidaAtual = vidaMax;
         movimento = 2;
-        ataqueOriginal = 4;
-        ataqueAtual = ataqueOriginal;
+        ataque = 4;
+        ataqueAtual = ataque;
 
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
@@ -74,14 +74,12 @@ public class whiteArcherManager : MonoBehaviour
     }
     public void EnableActions()
     {
-        canAct = true; // Permite que o arqueiro faca acoes
-        
+        canAct = true; // Permite que o arqueiro faca acoes        
     }
 
     public void DisableActions()
     {
         canAct = false; // Impede que o arqueiro faca acoes
-        
     }
 
     private void OnMouseEnter()
@@ -101,18 +99,11 @@ public class whiteArcherManager : MonoBehaviour
 
     private void OnMouseDown()
     {
-
-
         if (mouseOver)
         {
             if (selectedArcher == this)
             {
                 DeselectArcher();
-
-
-                
-
-
             }
             else
             {
@@ -143,10 +134,8 @@ public class whiteArcherManager : MonoBehaviour
         foreach (GameObject c in GameObject.FindGameObjectsWithTag("circuloAtk"))
         {
           Destroy(c);
-        } 
-
-
-            //attackCircleManager.HideAttackCircle();
+        }
+        //attackCircleManager.HideAttackCircle();
     }
 
     
@@ -220,8 +209,7 @@ public class whiteArcherManager : MonoBehaviour
             new Vector2Int(1, -2),
             new Vector2Int(-1, -2),
         };
-     
-        asd = direcoes;
+
         foreach (var dir in direcoes)
         {
             Vector2Int novaPos = new Vector2Int(posAtual.x + dir.x, posAtual.y + dir.y);
@@ -286,7 +274,7 @@ public class whiteArcherManager : MonoBehaviour
         return true;
     }
 
-    private void MostrarCasasDisponiveisArqueiro()
+    /*private void MostrarCasasDisponiveisArqueiro()
     {
         casasDisponiveis.Clear();
         Vector3 currentPos = transform.position;
@@ -309,7 +297,7 @@ public class whiteArcherManager : MonoBehaviour
         AdicionarCasaSeVaziaSeVazia(posAtual.x - 1, posAtual.y);
         AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y + 1);
         AdicionarCasaSeVaziaSeVazia(posAtual.x, posAtual.y - 1);
-    }
+    }*/
 
     public void tentativa()
     {
@@ -322,19 +310,13 @@ public class whiteArcherManager : MonoBehaviour
             AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z);
             
             if (tabuleiro.checaCasa((int)currentPos.x + 2, (int)currentPos.z) == false) //checa 2 casas a frente
-            {
                 AdicionarCasaSeVazia((int)currentPos.x + 2, (int)currentPos.z);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z + 1) == false) //checa a casa diagonal da esquerda
-            {
                 AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z + 1);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z - 1) == false) //checa a casa diagonal da direita
-            {
                 AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z - 1);
-            }
         }
 
         if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z) == false) //checa a casa de trás
@@ -342,19 +324,13 @@ public class whiteArcherManager : MonoBehaviour
             AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z);
             
             if (tabuleiro.checaCasa((int)currentPos.x - 2, (int)currentPos.z) == false) //checa 2 casas atrás
-            {
                 AdicionarCasaSeVazia((int)currentPos.x - 2, (int)currentPos.z);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z - 1) == false) //checa diagonal atrás direita
-            {
                 AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z -1);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z + 1) == false) // checa diagonal atrás esquerda
-            {
                 AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z + 1);
-            }
         }
 
         if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z + 1) == false) //checa casa da esquerda
@@ -362,19 +338,13 @@ public class whiteArcherManager : MonoBehaviour
             AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z + 1);
 
             if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z + 2) == false) //checa 2 casas para esquerda
-            {
                 AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z + 2);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z + 1) == false) //checa diagonal esquerda/frente
-            {
                 AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z + 1);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z + 1) == false) // checa diagonal esquerda/trás
-            {
                 AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z + 1);
-            }
         }
 
         if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z - 1) == false) //checa casa da direita
@@ -382,60 +352,46 @@ public class whiteArcherManager : MonoBehaviour
             AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z - 1);
 
             if (tabuleiro.checaCasa((int)currentPos.x, (int)currentPos.z - 2) == false) //checa 2 casas para direita
-            {
                 AdicionarCasaSeVazia((int)currentPos.x, (int)currentPos.z - 2);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z - 1) == false) //checa diagonal direita/atrás
-            {
                 AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z - 1);
-            }
 
             if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z - 1) == false) //checa diagonal direita/frente
-            {
                 AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z - 1);
-            }
-
         }
 
+        //casas diagonais
         if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z + 1) == false)
-        {
             AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z + 1);
-        }
 
         if (tabuleiro.checaCasa((int)currentPos.x + 1, (int)currentPos.z - 1) == false)
-        {
             AdicionarCasaSeVazia((int)currentPos.x + 1, (int)currentPos.z - 1);
-        }
 
         if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z + 1) == false)
-        {
             AdicionarCasaSeVazia((int)currentPos.x -1 , (int)currentPos.z + 1);
-        }
 
         if (tabuleiro.checaCasa((int)currentPos.x - 1, (int)currentPos.z - 1) == false)
-        {
             AdicionarCasaSeVazia((int)currentPos.x - 1, (int)currentPos.z - 1);
-        }
     }
 
     private void AdicionarCasaSeVazia(int x, int y)
     {
         if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
         {
-            if (tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
-            {
+            //if (tabuleiro.IsPositionEmpty(new Vector3(x, 0, y)))
+            //{
                 GameObject casa = GameObject.Find($"Casa {x},{y}");
                 if (casa != null)
                 {
                     casa.GetComponent<Renderer>().material.color = Color.yellow; // Muda a cor da casa
                     casasDisponiveis.Add(casa);
                 }
-            }
+            //}
         }
     }
 
-    private void AdicionarCasaSeVaziaSeVazia(int x, int y)
+    /*private void AdicionarCasaSeVaziaSeVazia(int x, int y)
     {
         if (x >= 0 && x < tabuleiro._casaOcupada.GetLength(0) && y >= 0 && y < tabuleiro._casaOcupada.GetLength(1))
         {
@@ -449,7 +405,7 @@ public class whiteArcherManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     private void RestaurarCasasDisponiveis()
     {

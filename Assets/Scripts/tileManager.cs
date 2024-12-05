@@ -21,17 +21,23 @@ public class tileManager : MonoBehaviour
         startColor = rend.material.color;
     }
 
-   /*private void OnMouseOver()
-    {
-        rend.material.color = hoverColor;
-        mouseOver = true;
-    }
+    /*private void OnMouseOver()
+     {
+         rend.material.color = hoverColor;
+         mouseOver = true;
+     }
 
-    private void OnMouseExit()
+     private void OnMouseExit()
+     {
+         rend.material.color = startColor;
+         mouseOver = false;
+     }*/
+
+
+    public void corOriginal()
     {
-        rend.material.color = startColor;
-        mouseOver = false;
-    }*/
+        this.rend.material.color = startColor;
+    }
 
     private void OnMouseDown()
     {
