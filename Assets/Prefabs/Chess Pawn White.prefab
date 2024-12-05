@@ -108,8 +108,8 @@ MonoBehaviour:
   whiteArcher: {fileID: 8223373098021097948, guid: a9b93b1bd25609b46879ef5b2263dd59, type: 3}
   peao: {fileID: 2911907423808343212}
   whiteMage: {fileID: 7824986730634663279, guid: 856a14c730e0dbf47a2ee8ed352d1450, type: 3}
-  turnManager: {fileID: 6624266347020599558, guid: 39a52d707db02a74dbedb5966aaa3f4e, type: 3}
-  battleManager: {fileID: 6084751253778790735, guid: bf5c7c45d7d8a524690f3cfa052c75ca, type: 3}
+  turnManager: {fileID: 0}
+  battleManager: {fileID: 0}
   posAtual: {x: 0, y: 0}
   novaPos: {x: 0, y: 0}
 --- !u!64 &9160728629633531917

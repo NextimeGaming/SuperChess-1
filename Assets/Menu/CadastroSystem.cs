@@ -4,7 +4,7 @@ using System.IO;
 
 public class CadastroSystem : MonoBehaviour
 {
-   
+
     public InputField inputEmail;
     public InputField inputUsername;
     public InputField inputPassword;
@@ -16,14 +16,14 @@ public class CadastroSystem : MonoBehaviour
 
     void Start()
     {
-        
+
         if (inputEmail == null || inputUsername == null || inputPassword == null || feedbackText == null || btnCadastrar == null)
         {
             Debug.LogError("Alguma referência não foi atribuída no Inspetor!");
-            return; 
+            return;
         }
 
-        
+
         btnCadastrar.onClick.AddListener(CadastrarUsuario);
     }
 
@@ -47,7 +47,7 @@ public class CadastroSystem : MonoBehaviour
             return;
         }
 
-       
+
         if (UsuarioExistente(username))
         {
             feedbackText.text = "Nome de usuário já existe!";
@@ -60,7 +60,7 @@ public class CadastroSystem : MonoBehaviour
         // Salva os dados do usuário no arquivo
         SalvarUsuario(userId, email, username, password);
 
-        
+
         feedbackText.text = "Cadastro realizado com sucesso!";
     }
 
